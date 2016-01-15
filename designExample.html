@@ -1,0 +1,226 @@
+
+<html>
+<head>
+<style>
+h3 {margin-bottom: 5px;}
+h4 {margin-bottom: 5px;}
+</style>
+</head>
+<body>
+<h2>Sample Preliminary Software Design</h2>
+
+<p>
+This is a sample preliminary software design for the card game Hearts.
+Since it's not a grid-based game, this isn't a game that you can do
+for your project, but this page should give you a good idea of what
+your preliminary software design should look like.
+</p>
+
+<p>
+If you're not familiar with the game of Hearts, you can read about it
+here:
+<a href="http://boardgames.about.com/od/hearts/a/hearts_rules.htm">
+http://boardgames.about.com/od/hearts/a/hearts_rules.htm</a>
+</p>
+
+<h3>Model</h3>
+
+<h4>Constants</h4>
+
+<b>MIN_PLAYERS</b> the minimum number of players in the game (3)
+<br>
+<b>MAX_PLAYERS</b> the maximum number of players in the game (7)
+<br>
+
+<table>
+<tr><td style="border-bottom: thin solid gray"><b>Suits</b></td><td>&nbsp;</td><br>
+<tr><td>HEARTS</td><td>0</td></tr>
+<tr><td>DIAMONDS</td><td>1</td></tr>
+<tr><td>CLUBS</td><td>2</td></tr>
+<tr><td>SPADES</td><td>3</td></tr>
+</table>
+
+<p>
+Even though numeric values are specified for suits, nothing in the program
+should depend on these specific values.
+</p>
+
+
+<p>
+Ranks from 2 to 10 will be represented by integer values.
+The ranks defined below should have the numeric values specified below
+so that they will work with the other ranks.
+<br>
+
+<table>
+<tr><td style="border-bottom: thin solid gray">
+         <b>Ranks</b></td><td>&nbsp;</td><br>
+<tr><td>JACK</td><td>11</td></tr>
+<tr><td>QUEEN</td><td>12</td></tr>
+<tr><td>KING</td><td>13</td></tr>
+<tr><td>ACE</td><td>14</td></tr>
+</table>
+</p>
+<br>
+
+The following types of objects will be used in the game:
+<br>
+
+<p>
+<b>Card</b><br>
+Each Card object will have a <b>suit</b> property and a <b>rank</b>
+property.
+<br>
+
+<ul><li>
+<b>suit</b> one of the following values: HEARTS, DIAMONDS, CLUBS, SPADES
+</li><li>
+<b>rank</b> a number in the range 2 to 14.
+The variables JACK, QUEEN, KING, and ACE can be used for ranks in the
+range of 11 to 14.
+</li></ul>
+</p>
+
+<p>
+Card object examples:<br>
+<tt>{"rank": 2, "suit": CLUBS}</tt><br>
+<tt>{"rank": QUEEN, "suit": SPADES}</tt><br>
+<tt>{"rank": ACE, "suit": HEARTS}</tt><br>
+</p>
+<br>
+
+<p>
+<b>PlayedCard</b><br>
+Each PlayedCard object will have a <b>suit</b> property and a <b>rank</b>
+property.
+<br>
+
+<ul><li>
+<b>card</b> a Card object
+</li><li>
+<b>playerNumber</b> a player number (index into the players property
+of Game objects)
+</li></ul>
+</p>
+
+<p>
+PlayedCard object example<br>
+<tt>{"card": {"rank": 2, "suit": CLUBS}, "playerNumber": 2}</tt><br>
+(Assumes there are at least three players in the game.)
+</p>
+<br>
+
+<p>
+<b>Player</b><br>
+Each Player object will have the following properties:
+<ul><li>
+<b>number</b>: integer
+</li><li>
+<b>name</b>: string<br>
+</li><li>
+<b>hand</b>: array of Card objects (usually 17 or fewer cards)<br>
+</li><li>
+<b>discard</b>: array of PlayedCard objects (zero to 52 cards)<br>
+</li><li>
+<b>score</b>: a non-negative integer <br>
+</li></ul>
+</p>
+<br>
+
+<p>
+<b>Game</b><br>
+Each Game object will have the following properties:
+<ul><li>
+<b>players</b> an array of Player objects (no fewer than MIN_PLAYERS
+  and not more than MAX_PLAYERS).
+Player numbers are indexes into this array.
+</li><li>
+<b>deck</b> an array of Card objects (zero to 52 cards).
+</li><li>
+<b>trick</b> an array of Card objects (not more than MAX_PLAYERS).
+</li><li>
+<b>nextToLead</b>: a Player number<br>
+</li><li>
+<b>nextToPlay</b>: a Player number<br>
+</li><li>
+<b>endScore</b>: a positive integer that is the score a player needs
+to win the game<br>
+</li></ul>
+</p>
+<br>
+
+<h4>Functions/Methods</h4>
+
+The following functions could be methods of Game, Player, or Card objects, but will be
+described as standalone functions here.
+<br><br>
+
+<p>
+<b>deal()</b><br>
+Creates a full deck, shuffles the deck, and puts cards in the
+<b>hand</b> array property of each player.
+(To ensure that all players have the same number of cards, some cards
+will be removed from the deck if there are 3, 5, 6, or 7 players.)
+</p>
+
+<p>
+<b>playCard(player, card)</b><br>
+Takes a player object and a card object as parameters.
+Determines whether the card can be legally played.
+If the specified card can be legally played, the card and the
+specified player's number are put into PlayedCard object which is
+added to the <b>trick</b> property of the current Game object.
+The card is removed from the hand of the player.
+</p>
+
+<p>
+<b>endTrick()</b><br>
+Determines which player won the trick according to the rules of the
+game.
+(The player who played the card of the highest rank of the lead suit
+wins the trick.)
+The PlayedCard objects from the <b>trick</b> property of the current Game
+object are appended to the <b>discard</b> array of the player who won the
+trick.
+The <b>nextToLead</b> property of the Game object is set to the number of the
+player who won the trick.
+All PlayedCard objects are removed from the <b>trick</b> array.
+</p>
+
+<p>
+<b>endHand()</b><br>
+Calculates the score for the hand for each player based on the discard
+property of the player.
+Adds the hand score to the player's total score.
+game.
+(The player who played the card of the highest rank of the lead suit
+wins the trick.)
+The PlayedCard objects from the <b>trick</b> property of the current Game
+object are appended to the <b>discard</b> array of the player who won the
+trick.
+The <b>nextToLead</b> property of the Game object is set to the number of the
+player who won the trick.
+</p>
+
+<h3>NOTES</h3>
+<p>
+--There is <em>no information</em> in the model about how things will look in the
+browser.
+This same model could be used in a game that had a text interface or
+in a game with animated 3D models.
+<br><br>
+--I haven't described all of the variables and functions that will be
+used in the model, but I have described enough of them to decide that this
+approach will probably work well.
+<br><br>
+--JavaScript doesn't have constants, so the "constants" will actually be
+defined as variables but the program won't change their values.
+<br><br>
+--All of the names (of variables and functions) defined for this game
+could be defined in a single global object to avoid namespace
+collisions with libraries and frameworks.
+<br>
+</p>
+
+</body>
+</html>

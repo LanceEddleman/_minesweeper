@@ -1,0 +1,3 @@
+readme.txt
+
+game definition
