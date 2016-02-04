@@ -1,10 +1,25 @@
 // base.css
 
 
-body {}
+body {
+	padding: 0px;
+	margin: 0px;
+}
 
 h2 {
 	color: green;
+}
+
+p {
+	padding: 0px;
+	margin: 0px;
+}
+
+pre {
+//	font-size: normal;
+	font-family: 'Times New Roman';
+	padding: 0px;
+	margin: 0px;
 }
 
 .bgc {
