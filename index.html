@@ -1,99 +1,199 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/base.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="base.js"></script>
+<script>$(document).ready(function(){toggleDetails('hide');});</script>
 </head>
 <body class="bgc">
-	<h2 class="title">index.html - Description page needs title</h2>
-	<pre>
-	brief description
-	link to game info on wiki
-	click open frame with design info
-	some way to start game (button or link)
-	separate page or a section in the description page<br/>
-	break down of different levels of game you can do
-	Size options: (10x10, 30x30, 75x75)
-	Number of bombs 10% or hard numbers (size + %), user selectable numbers
-	</pre>
-<br/>
-<pre>How the Game is played:
-	Minesweeper The program generates a different mine configuration for each game. The player can flag squares in the grid as mines, and can also change a square back to being un-flagged. Flagged squares should be indicated by an appropriate image, and revealed mines should also be represented by images. The program tells how many mines are in the grid and displays the number of mines that have been flagged at any given time. If a zero square is clicked, all adjacent zero squares (recursively) are also revealed. All non-zero squares adjacent to the revealed zero squares are also revealed. The player can choose the size of the puzzle and the number of mines. The program displays a message when the game is over (a mine is clicked, or all non-mine squares have been revealed and all mine squares are correctly flagged).
-	</pre>
+	<header id="head" class="title">Description page (title)</header>
+	<nav></nav>
+	<section id="content">
+		<article id='gameInfo'>
+		<p class="bold padTop">Game Rules:
+			<ol>How the Game is played:  &nbsp;&nbsp;&nbsp;&nbsp;< <a href="https://en.wikipedia.org/wiki/Minesweeper_(video_game)" target="_blank">Minesweeper wiki</a>  >
+					<li>Creating a new game will generate a different mine configuration for each time.</li>
+					<li>You the player can flag squares you believe are mines.</li>
+					<li>Each flag you place counts against the total mine count.</li>
+					<ul>
+						<li>This mean that if you use all of your flags and there are still undiscovered mines you lose.</li>
+					</ul>
+					<li>At any time you can remove a flag previously placed.</li>
+					<li>Each game will display the number of mines that have been placed, and your corresponding flag choices.</li>
+					<ul>
+						<li>Once you have marked all of the mines the game is over and you win!</li>
+					</ul>
+					<li>If you click a square with zero bombs adjacent to it the game will reveal that square as well as any other adjacent square that is not touching a mine.</li>
+					<li>The game will indicate how many mines are next to a square that has not been revealed.</li>
+					<li>You the player, can choose the size of your game puzzle and the relative number of mines.</li>
+					<li>* Remember if a mine is clicked, if all non-mine squares are revealed, or all mine squares are correctly flagged the game will end.</li>
+				</ol>
+			</p>
+			<p>
+			<br>* click open frame with design info
+			<br>* some way to start game (button or link)
+			<br>* separate page or a section in the description page
+			<br>* break down of different levels of game you can do
+			<br>* Size options: (10x10, 30x30, 75x75)
+			<br>* Number of bombs 10% or hard numbers (size + %), user selectable numbers
+			</p>
+			<br>
+		</article>
+	<!-- Toggle Game Design Information -->
+		<article id='designNotes'>
+			<div id="show">
+			<a href="#" onclick="toggleDetails('show')" class="bbar shadow">Show Design Work</a>
+					<!-- <button onclick="toggleDetails('show')" class="bbar">Show design details</button> -->
+			</div>
+			<div id="hide" >
+			<a href="#" onclick="toggleDetails('hide')" class="bbar shadow">Hide Design Work</a><hr>
+					<!-- <button onclick="toggleDetails('hide')" class="bbar">Hide design details</button> -->
+			</div>
+	<!-- Game Design Information -->
+			<div id="design">
+				<p>Preliminary Software Design</p>
+				<p>Design breakdown
 
-<div>this is where the page frame goes
-	<pre>
-		section description - <a href="psd.html">Preliminary Software Design</a>
-		
-		game brief description
-			Size options: (10x10, 30x30, 75x75)
-			Number of bombs: 5%-10% of number of cells
-			examples:	10x10 = 100
-						# bombs would be 5-10
+					How the Game is played:     < Minesweeper wiki >
+Game layout
+	Menu
+		New game
+			generates new game table 
+			this will use the base 30x30 (normal) game
+		Game modes
+			generates new game table 
+			options of 10x10, 30x30, 50x50, 75x75
+				(custom) possible option to allow user to pick a number up to 100 will generate 100 x 100 square - stretch item
+		Help
+			launches popup modal
+				X to close
+				esc to close
+			link for minesweeper wiki
+				loads in a new target window
+			basic game play rules
+		Credits
+			launches popup modal
+				X to close
+				esc to close
+			creator
+			notation for anyone who helped / ideas
+			image references
+			class name
+			creation date
+	Information Bar
+		Block count
+			hover with definition
+		Icon
+			hover with definition
+				base 3 games rules
+				click to start a new game
+					prompt user before creating new game
+		Remaining mines
+			hover with definition
+	Game Board
+		game grid table
 
-		Size options: (10x10, 30x30, 75x75)
-		Number of bombs 10% or hard numbers (size + %), user selectable numbers
+	
+	Functions
+		Menu
+			new, options, custom
+		Information
+			block counter, icons functionality, mine counter
+		Game
+			board generator, size table, custom build variables, 
 
-		need to use the following: links, headers, lines, lists, other as needed
-		<br/>
-		description page should have at least one image of game play
-		<br/>
-		game to open in separate window (grid in new window)  make this optional
-	</pre>
-	<pre>
-		<a href="game.html">Play Game</a> or play in separate window <a href="game.html" target="_blank">Play Game Separate Window</a>
-		<br/><br/>
-		<a href="game_image.png">External link to game image</a>
-	</pre>
+Creating a new game will generate a different mine configuration for each time.
+You the player can flag squares you believe are mines.
+Each flag you place counts against the total mine count.
+This mean that if you use all of your flags and there are still undiscovered mines you lose.
+At any time you can remove a flag previously placed.
+Each game will display the number of mines that have been placed, and your corresponding flag choices.
+Once you have marked all of the mines the game is over and you win!
+If you click a square with zero bombs adjacent to it the game will reveal that square as well as any other adjacent square that is not touching a mine.
+The game will indicate how many mines are next to a square that has not been revealed.
+You the player, can choose the size of your game puzzle and the relative number of mines.
+* Remember if a mine is clicked, if all non-mine squares are revealed, or all mine squares are correctly flagged the game will end.
 
-	<br/>
-	game and description page should use font family, size, color, backgrounds, borders, margins, padding, ect
-	<br/>
+* click open frame with design info 
+* some way to start game (button or link) 
+* separate page or a section in the description page 
+* break down of different levels of game you can do 
+* Size options: (10x10, 30x30, 75x75) 
+* Number of bombs 10% or hard numbers (size + %), user selectable numbers
 
-	<pre>Stage 1:
-			Welcome page
-				game definition
-			Game page
-				basic grid for game
-				pho game displayed in a in game state
-	Stage 2:
-			menu structure for user game choices
-			basic engine to create game grid
-			variables needed to pass user selection to grid creation
-	Stage 3:
-			algorithm and code to generate
 
-	</pre>
-	<pre>Game element break down:
-	Game board (size determined on user selection on creation)
-	Mines generated (number determined on user selection on creation)
-	Minesweeper The program generates a different mine configuration for each game.
-		Random location placement of mines for each game
-	The player can flag squares as mines, player can also un-flag squares
-		Ability for user to set a flag
-		Ability to remove a flag
-		Number of flags equal to initial number of mines
-			count updates based on placement or removal
- 		Flagged squares should be indicated by an appropriate image
- 		Revealed mines should be represented by an appropriate image
- 	The program displays number of mines in the game
- 	The program displays number of mines that have been flagged at any given time
- 	The program displays number of mines left to find based on previous two stats
- 	Behind the scenes field values
- 		field with no bombs adjacent = 0
- 		field with 1 bombs adjacent = 1
- 		field with 2 bombs adjacent = 2
- 		ect...
- 	If a zero square is clicked, all adjacent zero squares (recursively) are also revealed
- 	All non-zero squares adjacent to the revealed zero squares are also revealed **
- 		** revealed means that the square displays a number of how many bombs are adjacent to it
- 	The player can choose the size of the puzzle
- 	The player can choose the number of mines (within the given para-dime described above)
- 	The program displays a message when the game is over
- 		Game ends when:
- 			a mine is clicked, player loses
- 			all non-mine squares have been revealed **, player wins
- 			all mine squares are correctly flagged, player wins
-	</pre>
-</div>
+				<br>Size options: (10x10, 30x30, 75x75)
+				<br>Number of bombs: 5%-10% of number of cells
+				<br>examples:	10x10 = 100
+				<br> -- # bombs would be 5-10
+				<br>
+				<br>Size options: (10x10, 30x30, 75x75)
+				<br>Number of bombs 10% or hard numbers (size + %), user selectable numbers
+				<br>
+				<br>Need to use the following: links, headers, lines, lists, other as needed
+				<br/>
+				VDescription page should have at least one image of game play
+				<br/>
+				<br>Game to open in separate window (grid in new window)  make this optional
+				</p>
+				<p>
+				<br><a href="game.html">Play Game</a> or play in separate window <a href="game.html" target="_blank">Play Game Separate Window</a>
+				<br/><br/>
+				<a href="game_image.png">External link to game image</a>
+				</p>
 
+				<br/>
+				game and description page should use font family, size, color, backgrounds, borders, margins, padding, ect
+				<br/>
+
+				<pre>
+					Stage 1:
+						Welcome page
+							game definition
+						Game page
+							basic grid for game
+							pho game displayed in a in game state
+				Stage 2:
+						menu structure for user game choices
+						basic engine to create game grid
+						variables needed to pass user selection to grid creation
+				Stage 3:
+						algorithm and code to generate
+
+				</pre>
+				<pre>Game element break down:
+				Game board (size determined on user selection on creation)
+				Mines generated (number determined on user selection on creation)
+				Minesweeper The program generates a different mine configuration for each game.
+					Random location placement of mines for each game
+				The player can flag squares as mines, player can also un-flag squares
+					Ability for user to set a flag
+					Ability to remove a flag
+					Number of flags equal to initial number of mines
+						count updates based on placement or removal
+			 		Flagged squares should be indicated by an appropriate image
+			 		Revealed mines should be represented by an appropriate image
+			 	The program displays number of mines in the game
+			 	The program displays number of mines that have been flagged at any given time
+			 	The program displays number of mines left to find based on previous two stats
+			 	Behind the scenes field values
+			 		field with no bombs adjacent = 0
+			 		field with 1 bombs adjacent = 1
+			 		field with 2 bombs adjacent = 2
+			 		ect...
+			 	If a zero square is clicked, all adjacent zero squares (recursively) are also revealed
+			 	All non-zero squares adjacent to the revealed zero squares are also revealed **
+			 		** revealed means that the square displays a number of how many bombs are adjacent to it
+			 	The player can choose the size of the puzzle
+			 	The player can choose the number of mines (within the given para-dime described above)
+			 	The program displays a message when the game is over
+			 		Game ends when:
+			 			a mine is clicked, player loses
+			 			all non-mine squares have been revealed **, player wins
+			 			all mine squares are correctly flagged, player wins
+				</pre>
+			</div>
+		</article>
+	</section>
 </body>
 </html>
