@@ -58,7 +58,6 @@ pre {
 }
 
 .tab {
-	//padding-left: 10px;
 	margin-left: 10px;
 }
 
@@ -88,12 +87,10 @@ button {
  	padding: 0px;
  	margin: 0px;
 	background: linear-gradient(to top, lightblue 10%, #666 100%);
-//	background: linear-gradient(to bottom, #ECECEC 50%, #666 100%);
 	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.4), inset 0 0px 0 #666;
 	text-shadow: 1px 1px #FFF;
 	line-height: 20px;
 	outline: 0;
-//	background: none;
 	border : 0px;
 }
 
